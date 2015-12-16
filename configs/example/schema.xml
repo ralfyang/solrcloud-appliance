@@ -5,5 +5,8 @@
     <field name="key" type="string" indexed="true" stored="true" />
     <field name="value" type="string" indexed="true" stored="true" />
 
+    <fieldType name="long" class="solr.TrieLongField" />
+    <fieldType name="string" class="solr.StrField" />
+
     <uniqueKey>key</uniqueKey>
 </schema>

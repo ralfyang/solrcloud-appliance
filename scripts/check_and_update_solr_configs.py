@@ -12,15 +12,12 @@ if not EXHIBITOR:
     print("ERROR Environment variable ZK_HOST not set.")
     sys.exit(1)
 
-ENV = os.environ.get('ENVIRONMENT')
-if not ENV:
-    print("ERROR Environment variable ENVIRONMENT not set.")
-    sys.exit(1)
-
 SOLR_BASE_URL = os.environ.get('SOLR_BASE_URL')
 if not SOLR_BASE_URL:
     print("ERROR Environment variable SOLR_BASE_URL not set.")
     sys.exit(1)
+
+ENV = os.environ.get('ENVIRONMENT')
 
 SOLR_API = SOLR_BASE_URL + '/admin/collections'
 ENVIRONMENTS = ['live', 'test']

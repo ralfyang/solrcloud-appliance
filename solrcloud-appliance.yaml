@@ -32,15 +32,15 @@ SenzaComponents:
   - AppServer:
       Type: Senza::TaupageAutoScalingGroup
       AutoScaling:
-        Minimum: {{Arguments.Nodes}}
-        Maximum: {{Arguments.Nodes}}
+        Minimum: "{{Arguments.Nodes}}"
+        Maximum: "{{Arguments.Nodes}}"
         MetricType: CPU
       InstanceType: r3.2xlarge
       HealthCheckGracePeriod: 900
       SecurityGroups:
-        - "app-{{Arguments.ApplicationId}}"
+        - "{{Arguments.ApplicationId}}"
       IamRoles:
-        - "app-{{Arguments.ApplicationId}}"
+        - "{{Arguments.ApplicationId}}"
       ElasticLoadBalancer: AppLoadBalancer
       AssociatePublicIpAddress: false # change for standalone deployment in default VPC
       TaupageConfig:
@@ -57,11 +57,11 @@ SenzaComponents:
                 erase_on_boot: true
         networking: host
         environment:
-          ZK_API: {{Arguments.ZookeeperAPI}}
+          ZK_API: "{{Arguments.ZookeeperAPI}}"
           ZK_CLIENT_TIMEOUT: 60000
-          SOLR_BASE_URL: {{Arguments.SolrBaseUrl}}
+          SOLR_BASE_URL: "{{Arguments.SolrBaseUrl}}"
         mint_bucket: "{{Arguments.MintBucket}}"
-        scalyr_account_key: {{Arguments.SkalyrAccountKey}}
+        scalyr_account_key: "{{Arguments.ScalyrAccountKey}}"
         application_logrotate_filesize: 1G
         application_logrotate_period: daily
         application_logrotate_rotate: 0
@@ -73,5 +73,5 @@ SenzaComponents:
       HTTPPort: 8983
       HealthCheckPath: /solr/favicon.ico
       SecurityGroups:
-        - "app-{{Arguments.ApplicationId}}-lb"
+        - "{{Arguments.ApplicationId}}-lb"
       Scheme: internal
