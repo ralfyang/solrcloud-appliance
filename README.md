@@ -31,27 +31,34 @@ Appliance for running a SolrCloud on the [STUPS](https://stups.io/) infrastructu
 3. Create the following security groups
 
     - \<application id\>
-        - Inbound:        
-            | Type            | Protocol | Port Range | Source                          |
-            |-----------------|----------|------------|---------------------------------|
-            | All TCP         | TCP      | 0-65535    | sg-??? (\<application id\>)     |
-            | SSH             | TCP      | 22         | sg-??? (Odd (SSH Bastion Host)) |
-            | Custom TCP Rule | TCP      | 8983       | sg-??? (\<application id\>-lb   |
-            | Custom TCP Rule | TCP      | 8778       | monitoring                      |
-        - Outbound:        
-            | Type            | Protocol | Port Range | Source                          |
-            |-----------------|----------|------------|---------------------------------|
-            | All traffic     | All      | All        | 0.0.0.0/0                       |
+        - Inbound:
+
+        | Type            | Protocol | Port Range | Source                          |
+        | --------------- | -------- | ---------- | ------------------------------- |
+        | All TCP         | TCP      | 0-65535    | sg-??? (\<application id\>)     |
+        | SSH             | TCP      | 22         | sg-??? (Odd (SSH Bastion Host)) |
+        | Custom TCP Rule | TCP      | 8983       | sg-??? (\<application id\>-lb   |
+        | Custom TCP Rule | TCP      | 8778       | monitoring                      |
+
+        - Outbound:
+
+        | Type            | Protocol | Port Range | Source                          |
+        | --------------- | -------- | ---------- | ------------------------------- |
+        | All traffic     | All      | All        | 0.0.0.0/0                       |
+
     - \<application id\>-lb
-        - Inbound:        
-            | Type            | Protocol | Port Range | Source                          |
-            |-----------------|----------|------------|---------------------------------|
-            | HTTPS           | TCP      | 443        | consumer                        |
-            | HTTPS           | TCP      | 443        | sg-??? (\<application id\>      |
+        - Inbound:
+
+        | Type            | Protocol | Port Range | Source                          |
+        | --------------- | -------- | ---------- | ------------------------------- |
+        | HTTPS           | TCP      | 443        | consumer                        |
+        | HTTPS           | TCP      | 443        | sg-??? (\<application id\>      |
+
         - Outbound:        
-            | Type            | Protocol | Port Range | Source                          |
-            |-----------------|----------|------------|---------------------------------|
-            | All traffic     | All      | All        | 0.0.0.0/0                       |
+
+        | Type            | Protocol | Port Range | Source                          |
+        | --------------- | -------- | ---------- | ------------------------------- |
+        | All traffic     | All      | All        | 0.0.0.0/0                       |
 
 4. Create an IAM role named \<application ID\> with the following policy ("AllowMintRead")
 
