@@ -1,3 +1,4 @@
+ApplicationId: example
 DockerImage: registry.example.org/solrcloud-appliance
 MintBucket:
 ScalyrAccountKey:

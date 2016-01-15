@@ -21,6 +21,7 @@ Appliance for running a SolrCloud on the [STUPS](https://stups.io/) infrastructu
 
         $ cp example.yaml <application id>.yaml
 
+    - **ApplicationId** - The ID of the SolrCloud cluster
     - **DockerImage** - The Docker image tag without version
     - **MintBucket** - The name of the S3 bucket for the secrets exchange via [mint](http://docs.stups.io/en/latest/components/mint.html)   
     - **ScalyrAccountKey** - The account key for [Scalyr](https://www.scalyr.com/) for storing the log output
