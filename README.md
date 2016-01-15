@@ -61,7 +61,7 @@ Appliance for running a SolrCloud on the [STUPS](https://stups.io/) infrastructu
         | --------------- | -------- | ---------- | ------------------------------- |
         | All traffic     | All      | All        | 0.0.0.0/0                       |
 
-4. Create an IAM role named \<application ID\> with the following policy ("AllowMintRead")
+4. Create an IAM role named \<application id\> with the following policy ("AllowMintRead")
 
         {
             "Version": "2012-10-17",
