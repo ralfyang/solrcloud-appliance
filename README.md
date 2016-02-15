@@ -115,3 +115,12 @@ unavailable or something else happens during deployment.
         $ docker push <tag>
 
 4. Deploy new Solr version to inactive stack (green or blue) on AWS with [solrcloud-cli](https://github.com/zalando/solrcloud-cli).
+
+
+## 4 Local standalone Solr
+
+1. Start Docker container with /startup-local.sh command parameter
+
+        $ docker run -p 8983:8983 -p 8778:8778 --net=host -v /data -it <tag> /startup-local.sh
+
+        
