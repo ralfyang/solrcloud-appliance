@@ -1,4 +1,4 @@
-FROM registry.opensource.zalan.do/stups/openjdk:8u66-b17-1-12
+FROM registry.opensource.zalan.do/stups/openjdk:8-26
 
 RUN apt-get update && apt-get install -y wget python3 unzip
 
