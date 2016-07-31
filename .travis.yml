@@ -3,7 +3,7 @@ python:
     - 3.5
 install:
   - pip install -r scripts/requirements.txt
-  - pip install -r scripts/test_requirements.txt
+  - pip install -r scripts/test-requirements.txt
   - pip install codecov
 script:
   - python py.test -s scripts/ --cov=scripts/ --cov-report=xml --junitxml=test-results.xml
