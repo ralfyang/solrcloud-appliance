@@ -6,6 +6,6 @@ install:
   - pip install -r scripts/test-requirements.txt
   - pip install codecov
 script:
-  - python py.test -s scripts/ --cov=scripts/ --cov-report=xml --junitxml=test-results.xml
+  - py.test -s scripts/ --cov=scripts/ --cov-report=xml --junitxml=test-results.xml
 after_success:
   - codecov
