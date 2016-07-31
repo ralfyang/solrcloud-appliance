@@ -20,6 +20,14 @@ SenzaInfo:
         Description: "API for accessing Zookeeper over HTTTP(S)"
     - SolrBaseUrl:
         Description: "Base URL of Solr cloud appliance"
+    - SolrBackupBucket:
+        Description: "S3 bucket name used for backup"
+    - RestoreLatestBackup:
+        Description: "Restore latest backup after bootstrapping the cluster"
+        Default: False
+    - BackupInterval:
+        Description: "Interval of backup creation for this cluster"
+        Default: "none"
 
 # a list of senza components to apply to the definition
 SenzaComponents:
@@ -60,6 +68,9 @@ SenzaComponents:
           ZK_API: "{{Arguments.ZookeeperAPI}}"
           ZK_CLIENT_TIMEOUT: 60000
           SOLR_BASE_URL: "{{Arguments.SolrBaseUrl}}"
+          SOLR_BACKUP_BUCKET: "{{Arguments.SolrBackupBucket}}"
+          BACKUP_INTERVAL: "{{Arguments.BackupInterval}}"
+          RESTORE_LATEST_BACKUP: "{{Arguments.RestoreLatestBackup}}"
         mint_bucket: "{{Arguments.MintBucket}}"
         scalyr_account_key: "{{Arguments.ScalyrAccountKey}}"
         application_logrotate_filesize: 1G
