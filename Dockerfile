@@ -1,6 +1,6 @@
-FROM registry.opensource.zalan.do/stups/openjdk:8-26
+FROM registry.opensource.zalan.do/stups/openjdk:8u66-b17-1-12
 
-RUN apt-get update && apt-get install -y wget python3 unzip
+RUN apt-get update && apt-get install -y wget python3 unzip python3-pip
 
 RUN wget -q -O - http://www.mirrorservice.org/sites/ftp.apache.org/lucene/solr/5.4.1/solr-5.4.1.tgz | tar -xzf - -C /opt \
     && mv /opt/solr-5.4.1 /opt/solr
@@ -16,6 +16,8 @@ ADD configs /opt/solr/configs
 
 ADD scripts /opt/solr/scripts
 RUN chmod 777 /opt/solr/scripts/*
+
+RUN pip3 install --upgrade -r /opt/solr/scripts/requirements.txt
 
 ADD startup.sh startup.sh
 RUN chmod 777 startup.sh

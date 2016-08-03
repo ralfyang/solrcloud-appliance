@@ -5,3 +5,6 @@ ScalyrAccountKey:
 ZookeeperAPI: http://localhost:8181/exhibitor/v1
 Nodes: 9
 SolrBaseUrl: http://localhost:8983/solr
+SolrBackupBucket: solr-backup
+BackupInterval: daily
+RestoreLatestBackup: False

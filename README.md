@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/zalando-incubator/solrcloud-appliance.svg?branch=master)](https://travis-ci.org/zalando-incubator/solrcloud-appliance?branch=master)
+[![Coverage Status](https://codecov.io/github/zalando-incubator/solrcloud-appliance/coverage.svg?branch=master)](https://codecov.io/github/zalando-incubator/solrcloud-appliance?branch=master)
+
 # SolrCloud appliance for STUPS
 
 Appliance for running a SolrCloud on the [STUPS](https://stups.io/) infrastructure.
@@ -123,4 +126,42 @@ unavailable or something else happens during deployment.
 
         $ docker run -p 8983:8983 -p 8778:8778 --net=host -v /data -it <tag> /startup-local.sh
 
-        
+
+## 5 Backup of SolrCloud cluster
+
+### 1. Create S3 backup bucket \<backup bucket\>
+
+### 2. Attach \<application id\>-backup policy to IAM role named \<application id\>
+
+        {
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "s3:*"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::<backup bucket>/"
+                    ]
+                },
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "s3:*"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::<backup bucket>/*"
+                    ]
+                }
+            ],
+            "Version": "2012-10-17"
+        }
+
+
+### 3. Backup Solr collections
+In order to enable automatic backups `SolrBackupBucket` and `BackupInterval` (weekly, daily, hourly) need to be set in 
+the yaml configuration file.
+
+### 4. Restore Solr collections
+In order to bootstrap a new cluster from a backup the property `RestoreLatestBackup: True` needs to be set in the 
+yaml configuration file. 

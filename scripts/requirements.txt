@@ -1,0 +1,2 @@
+apscheduler==3.1.0
+awscli==1.10.26
