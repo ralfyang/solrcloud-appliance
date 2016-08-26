@@ -51,6 +51,11 @@ SenzaComponents:
         - "{{Arguments.ApplicationId}}"
       ElasticLoadBalancer: AppLoadBalancer
       AssociatePublicIpAddress: false # change for standalone deployment in default VPC
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvdk
+          Ebs:
+            VolumeSize: 320
+            VolumeType: gp2
       TaupageConfig:
         application_version: "{{Arguments.ImageVersion}}"
         runtime: Docker
@@ -59,6 +64,10 @@ SenzaComponents:
           8983: 8983
           48983: 48983
         mounts:
+            /backup:
+                partition: /dev/xvdk
+                filesystem: ext4
+                erase_on_boot: true
             /data:
                 partition: /dev/xvdb
                 filesystem: ext4

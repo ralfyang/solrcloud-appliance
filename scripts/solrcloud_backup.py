@@ -19,15 +19,17 @@ from datetime import datetime
 from threading import Thread
 
 LOCAL_URL = 'http://localhost:8983/solr'
-BACKUP_ROOT_DIR = '/data/backup/'
+BACKUP_ROOT_DIR = '/backup/'
 DATA_DIR = '/data/'
 
-DEFAULT_COMMIT_WAIT_IN_SECONDS = 120
+DO_NOT_DELETE = ['lost+found']
 
-DEFAULT_RETRY_COUNT = 30
-DEFAULT_RETRY_WAIT_IN_SECONDS = 5
+DEFAULT_COMMIT_WAIT_IN_SECONDS = 300
 
-DEFAULT_RESTORE_RETRY_COUNT = 30
+DEFAULT_RETRY_COUNT = 60
+DEFAULT_RETRY_WAIT_IN_SECONDS = 60
+
+DEFAULT_RESTORE_RETRY_COUNT = 60
 DEFAULT_RESTORE_RETRY_WAIT_IN_SECONDS = 60
 
 TIMESTAMP_MINUTE = 0
@@ -55,8 +57,8 @@ class BackupController:
 
     def create_backup(self, bucket: str, cleanup=True):
         try:
-            if len(os.listdir(BACKUP_ROOT_DIR)) > 0:
-                raise Exception('Backup root directory is not empty.')
+            if not set(os.listdir(BACKUP_ROOT_DIR)).issubset(set(DO_NOT_DELETE)):
+                raise Exception('Backup root directory contains unexpected files or dirs.')
 
             timestamp = datetime.utcnow().strftime('%Y%m%d%H%M')
             self.__trigger_local_commit()
@@ -355,14 +357,15 @@ class BackupController:
     def __clean_up_backup_dir():
         logging.info('Cleaning up backup directory ...')
         for path in os.listdir(BACKUP_ROOT_DIR):
-            if os.path.isdir(BACKUP_ROOT_DIR + path):
-                shutil.rmtree(BACKUP_ROOT_DIR + path)
-                logging.info('Removed directory [{}]'.format(BACKUP_ROOT_DIR + path))
-            elif os.path.isfile(BACKUP_ROOT_DIR + path):
-                os.remove(BACKUP_ROOT_DIR + path)
-                logging.info('Removed file [{}]'.format(BACKUP_ROOT_DIR + path))
-            else:
-                logging.warning('Could not delete [{}]'.format(path))
+            if path not in DO_NOT_DELETE:
+                if os.path.isdir(BACKUP_ROOT_DIR + path):
+                    shutil.rmtree(BACKUP_ROOT_DIR + path)
+                    logging.info('Removed directory [{}]'.format(BACKUP_ROOT_DIR + path))
+                elif os.path.isfile(BACKUP_ROOT_DIR + path):
+                    os.remove(BACKUP_ROOT_DIR + path)
+                    logging.info('Removed file [{}]'.format(BACKUP_ROOT_DIR + path))
+                else:
+                    logging.warning('Could not delete [{}]'.format(path))
 
     @staticmethod
     def __send_http_request(url: str):
