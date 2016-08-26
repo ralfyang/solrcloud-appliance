@@ -36,7 +36,7 @@ JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.port=48983"
 JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
 JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.ssl=false"
 
-SOLR_BACKUP_DIR=/data/backup
+SOLR_BACKUP_DIR=/backup
 mkdir -p $SOLR_BACKUP_DIR
 
 # Start backup job as background process

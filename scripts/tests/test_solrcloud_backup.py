@@ -15,7 +15,7 @@ import urllib.request
 
 COMMIT_WAIT_IN_SECONDS = 0
 S3_BUCKET = 'test_bucket'
-BACKUP_ROOT_DIR = '/data/backup/'
+BACKUP_ROOT_DIR = '/backup/'
 LOCAL_URL = 'http://localhost:8983/solr'
 
 HTTP_CODE_OK = 200
